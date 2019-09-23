@@ -4,8 +4,8 @@
         size_hint: None, None
 
     DPEAButton:
-        id: test_button
-        text: 'On'
+        id: toggle_button
+        text: "Off" if self.state == "normal" else "On"
         size: 100, 100
         x: root.width * 0.75
         y: root.height * 0.5
@@ -13,12 +13,21 @@
         #on_press: root.pressed()
 
     DPEAButton:
+        id: counter_button
+        text: "Counter: " + root.string_value
+        size: 250, 100
+        x: root.width * 0.475
+        y: root.height * 0.25
+        color: 1, 0, 0, 1
+        on_press: root.counter()
+
+    DPEAButton:
+        id: motor_button
         text: "0"
         size: 100, 100
         x: root.width * 0.25
         y:root.height * 0.5
         color: 1, 0, 0, 1
-        #on_press: root.pressed()
 
     ImageButton:
         id: logo_image_button

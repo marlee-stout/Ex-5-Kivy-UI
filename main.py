@@ -4,6 +4,7 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.properties import StringProperty
 
 from pidev.MixPanel import MixPanel
 from pidev.kivy.PassCodeScreen import PassCodeScreen
@@ -36,6 +37,13 @@ Window.clearcolor = (1, 1, 1, 1)  # White
 
 
 class MainScreen(Screen):
+
+    string_value = StringProperty()
+
+    def __init__(self, **kwargs):
+        super(MainScreen, self).__init__(**kwargs)
+        self.count = 0
+
     """
     Class to handle the main screen and its associated touch events
     """
@@ -54,6 +62,10 @@ class MainScreen(Screen):
         :return: None
         """
         SCREEN_MANAGER.current = 'passCode'
+
+    def counter(self):
+        self.string_value = str(self.count)
+        self.count = self.count + 1
 
 
 class AdminScreen(Screen):
