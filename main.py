@@ -5,6 +5,8 @@ from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import StringProperty
+from kivy.properties import ObjectProperty
+from kivy.uix.slider import Slider
 
 from pidev.MixPanel import MixPanel
 from pidev.kivy.PassCodeScreen import PassCodeScreen
@@ -18,6 +20,7 @@ MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
 SCREEN_MANAGER = ScreenManager()
 MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
+SCREEN_TWO_NAME = "screen_two"
 
 
 class ProjectNameGUI(App):
@@ -39,10 +42,12 @@ Window.clearcolor = (1, 1, 1, 1)  # White
 class MainScreen(Screen):
 
     string_value = StringProperty()
+    motor_value = StringProperty()
 
     def __init__(self, **kwargs):
         super(MainScreen, self).__init__(**kwargs)
         self.count = 0
+        self.motor_value = "Off"
 
     """
     Class to handle the main screen and its associated touch events
@@ -53,7 +58,7 @@ class MainScreen(Screen):
         Function called on button touch event for button with id: testButton
         :return: None
         """
-        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test", pause_duration=5)
+        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='admin', text="Test", pause_duration=5)
 
     def admin_action(self):
         """
@@ -66,6 +71,17 @@ class MainScreen(Screen):
     def counter(self):
         self.string_value = str(self.count)
         self.count = self.count + 1
+
+    def motor_switch(self):
+        if self.motor_value == "On":
+            self.motor_value = "Off"
+        else:
+            self.motor_value = "On"
+
+
+class ScreenTwo(Screen):
+    def __init__(self, **kwargs):
+        super(ScreenTwo, self).__init__(**kwargs)
 
 
 class AdminScreen(Screen):
@@ -82,7 +98,7 @@ class AdminScreen(Screen):
         Builder.load_file('AdminScreen.kv')
 
         PassCodeScreen.set_admin_events_screen(ADMIN_SCREEN_NAME)  # Specify screen name to transition to after correct password
-        PassCodeScreen.set_transition_back_screen(MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game is pressed"
+        PassCodeScreen.set_transition_back_screen(MAIN_SCREEN_NAME)  # set screen name to transition to if "Back to Game" is pressed
 
         super(AdminScreen, self).__init__(**kwargs)
 
