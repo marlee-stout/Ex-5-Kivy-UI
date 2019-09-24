@@ -1,0 +1,12 @@
+<ScreenTwo>
+    name: "screen_two"
+    FloatLayout:
+        size_hint: None, None
+
+    DPEAButton:
+        text: "Go back to main screen"
+        color: 0.8, 0.3, 0.7, 1
+        size: 500, 100
+        x: root.width * 0.4
+        y: root.height * 0.5
+        on_press: root.go_back()

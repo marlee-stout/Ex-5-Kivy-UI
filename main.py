@@ -78,10 +78,18 @@ class MainScreen(Screen):
         else:
             self.motor_value = "On"
 
+    def change_screens(self):
+        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='screen_two', text="Test", pause_duration=3)
+
 
 class ScreenTwo(Screen):
     def __init__(self, **kwargs):
+        Builder.load_file('ScreenTwo.kv')
         super(ScreenTwo, self).__init__(**kwargs)
+
+    def go_back(self):
+        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test",
+                          pause_duration=3)
 
 
 class AdminScreen(Screen):
@@ -134,6 +142,7 @@ SCREEN_MANAGER.add_widget(MainScreen(name=MAIN_SCREEN_NAME))
 SCREEN_MANAGER.add_widget(PassCodeScreen(name='passCode'))
 SCREEN_MANAGER.add_widget(PauseScreen(name='pauseScene'))
 SCREEN_MANAGER.add_widget(AdminScreen(name=ADMIN_SCREEN_NAME))
+SCREEN_MANAGER.add_widget(ScreenTwo(name=SCREEN_TWO_NAME))
 
 """
 MixPanel
