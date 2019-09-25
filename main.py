@@ -7,6 +7,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import StringProperty
 from kivy.properties import ObjectProperty
 from kivy.uix.slider import Slider
+from kivy.animation import Animation
 
 from pidev.MixPanel import MixPanel
 from pidev.kivy.PassCodeScreen import PassCodeScreen
@@ -80,6 +81,9 @@ class MainScreen(Screen):
 
     def change_screens(self):
         PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='screen_two', text="Test", pause_duration=3)
+
+    def animate(self, x, y, size1, size2):
+        Animation(pos=(self.x, self.y)) + Animation(size=(self.size1, self.size2))
 
 
 class ScreenTwo(Screen):
