@@ -8,6 +8,15 @@
         text: "Go back to main screen"
         color: 0.8, 0.3, 0.7, 1
         size: 500, 100
-        x: root.width * 0.4
+        x: root.width * 0.3
         y: root.height * 0.5
         on_press: root.go_back()
+
+    DPEAButton:
+        id: animate_button
+        text: "Click me!"
+        color: 0.6, 0.3, 0.7, 1
+        size: 200, 100
+        x: root.width * 0.7
+        y: root.height * 0.8
+        on_press: root.animate()

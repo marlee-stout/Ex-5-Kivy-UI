@@ -7,7 +7,7 @@
         id: slider
         text: "Position"
         orientation: "horizontal"
-        y: root.height * 0.15
+        y: root.height * 0.25
         color: 0.6, 0.9, 0.4, 1
         min: 0
         max: 100
@@ -25,13 +25,12 @@
         x: root.width * 0.75
         y: root.height * 0.5
         color: 0, 1, 0, 1
-        #on_press: root.pressed()
 
     DPEAButton:
         id: counter_button
         text: "Counter: " + root.string_value
         size: 250, 100
-        x: root.width * 0.475
+        x: root.width * 0.4
         y: root.height * 0.25
         color: 1, 0, 0, 1
         on_press: root.counter()
@@ -57,5 +56,4 @@
         size: 100, 100
         x: root.width * 0.5
         y: root.height * 0.5
-        on_press: root.animate(root.width * 0.5, root.height * 0.6, 200, 200)
-        on_complete: root.change_screens()
+        on_press: root.change_screens()

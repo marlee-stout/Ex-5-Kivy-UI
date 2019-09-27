@@ -49,6 +49,7 @@ class MainScreen(Screen):
         super(MainScreen, self).__init__(**kwargs)
         self.count = 0
         self.motor_value = "Off"
+        self.anim = ()
 
     """
     Class to handle the main screen and its associated touch events
@@ -80,20 +81,26 @@ class MainScreen(Screen):
             self.motor_value = "On"
 
     def change_screens(self):
-        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='screen_two', text="Test", pause_duration=3)
+        PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='screen_two', text="Test", pause_duration=1)
 
-    def animate(self, x, y, size1, size2):
-        Animation(pos=(self.x, self.y)) + Animation(size=(self.size1, self.size2))
+    def animate(self):
+        self.anim = Animation(x=.1, y=.1) & Animation(size=(200, 200))
+        self.anim.start(self.ids.screen_two_button)
 
 
 class ScreenTwo(Screen):
     def __init__(self, **kwargs):
         Builder.load_file('ScreenTwo.kv')
         super(ScreenTwo, self).__init__(**kwargs)
+        self.anim = ()
 
     def go_back(self):
         PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test",
-                          pause_duration=3)
+                          pause_duration=1)
+
+    def animate(self):
+        self.anim = Animation(x=.1, y=.1) & Animation(size=(400, 200))
+        self.anim.start(self.ids.animate_button)
 
 
 class AdminScreen(Screen):
