@@ -15,6 +15,8 @@ from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
 
+from pidev import Joystick
+
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
 
@@ -86,6 +88,8 @@ class MainScreen(Screen):
     def animate(self):
         self.anim = Animation(x=.1, y=.1) & Animation(size=(200, 200))
         self.anim.start(self.ids.screen_two_button)
+
+    def joystick(self):
 
 
 class ScreenTwo(Screen):
