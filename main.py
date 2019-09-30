@@ -89,10 +89,11 @@ class MainScreen(Screen):
         self.anim = Animation(x=.1, y=.1) & Animation(size=(200, 200))
         self.anim.start(self.ids.screen_two_button)
 
-    def joystick(self):
-
 
 class ScreenTwo(Screen):
+
+    button_state = ObjectProperty(0)
+
     def __init__(self, **kwargs):
         Builder.load_file('ScreenTwo.kv')
         super(ScreenTwo, self).__init__(**kwargs)
@@ -105,6 +106,11 @@ class ScreenTwo(Screen):
     def animate(self):
         self.anim = Animation(x=.1, y=.1) & Animation(size=(400, 200))
         self.anim.start(self.ids.animate_button)
+
+    def joy_button(self):
+        while 1:
+            self.button_state = self.joystick.get_button_state(1)
+            sleep(.1)
 
 
 class AdminScreen(Screen):

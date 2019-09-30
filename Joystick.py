@@ -62,10 +62,11 @@ class Joystick:
 
     def get_button_state(self, button_num):
         """
-        Get the state of a button. This project uses the "Logitech Attack 3" which contains 11 physical buttons but are
-        indexed 0-10
+        Get the state of a button. This project uses the "Logitech Attack 3" which contains
+        11 physical buttons but are indexed 0-10
         :param button_num: Button number to get the state of
-        :raises: ValueError if the given button number is not in the range of available buttons
+        :raises: ValueError if the given button number is not in the range of available
+        buttons
         :rtype: int
         :return: 0 or 1 (1=button depressed)
         """

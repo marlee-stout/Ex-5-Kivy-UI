@@ -22,8 +22,9 @@
         on_press: root.animate()
 
     Label:
-        id: joystick_label
-        text: "Joystick Button Pressed: " + root.button_num()
+        id: joystick_button
+        text: "Button 1: " + str(root.button_state)
         color: 1, 0, 0, 1
-        x: root.width * 0.7
-        y: root.height * 0.3
+        x: root.width * 0.25
+        y: root.height * -0.2
+        bold: True
