@@ -14,8 +14,11 @@ from pidev.kivy.PassCodeScreen import PassCodeScreen
 from pidev.kivy.PauseScreen import PauseScreen
 from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
+import time
 
 from pidev import Joystick
+from threading import Thread
+from time import sleep
 
 MIXPANEL_TOKEN = "x"
 MIXPANEL = MixPanel("Project Name", MIXPANEL_TOKEN)
@@ -52,6 +55,7 @@ class MainScreen(Screen):
         self.count = 0
         self.motor_value = "Off"
         self.anim = ()
+
 
     """
     Class to handle the main screen and its associated touch events
@@ -98,6 +102,10 @@ class ScreenTwo(Screen):
         Builder.load_file('ScreenTwo.kv')
         super(ScreenTwo, self).__init__(**kwargs)
         self.anim = ()
+        self.joy_x_val = ()
+        self.joy_y_val = ()
+        self.x_axis = ()
+        self.y_axis = ()
 
     def go_back(self):
         PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test",
@@ -110,6 +118,18 @@ class ScreenTwo(Screen):
     def joy_button(self):
         while 1:
             self.button_state = self.joystick.get_button_state(1)
+            self.x_axis = self.joystick.get_axis(0)
+            self.y_axis = self.joystick.get_axis(1)
+            sleep(.1)
+
+    def start_joy_thread(self):
+        Thread(target=self.joy_update).start()
+
+    def joy_update(self):
+        while True:
+            self.joy_x_val = joystick.get_axis('x')
+            self.ids.joy_label.x = (self.joy_x_val)
+            self.joy_y_val = joystick.get_axis('y')
             sleep(.1)
 
 
