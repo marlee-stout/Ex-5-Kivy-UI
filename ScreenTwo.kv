@@ -1,6 +1,6 @@
 <ScreenTwo>
     name: "screen_two"
-    on_enter:root.start_joy_thread()
+    on_enter: root.start_joy_thread()
 
     FloatLayout:
         size_hint: None, None
@@ -24,9 +24,21 @@
         on_press: root.animate()
 
     Label:
-        id: joystick_button
-        text: "Button 1: " + str(root.button_state)
+        id: joy_button
+        text: "Button 0: " + str(root.button_state)
         color: 1, 0, 0, 1
         x: root.width * 0.25
         y: root.height * -0.2
         bold: True
+
+    Label:
+        id: joystick
+        center_x: self.width/2
+        center_y: self.height/2
+        text: "x: "
+        color: 0.7, 0.23, 0.34, 1
+        bold: True
+        x: 0
+        y: 0
+        step: 1
+

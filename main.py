@@ -16,7 +16,7 @@ from pidev.kivy import DPEAButton
 from pidev.kivy import ImageButton
 import time
 
-from pidev import Joystick
+from pidev.Joystick import Joystick
 from threading import Thread
 from time import sleep
 
@@ -28,6 +28,7 @@ MAIN_SCREEN_NAME = 'main'
 ADMIN_SCREEN_NAME = 'admin'
 SCREEN_TWO_NAME = "screen_two"
 
+joystick = Joystick(0, False)
 
 class ProjectNameGUI(App):
     """
@@ -96,16 +97,14 @@ class MainScreen(Screen):
 
 class ScreenTwo(Screen):
 
+    joystick = Joystick(0, True)
     button_state = ObjectProperty(0)
 
     def __init__(self, **kwargs):
         Builder.load_file('ScreenTwo.kv')
         super(ScreenTwo, self).__init__(**kwargs)
         self.anim = ()
-        self.joy_x_val = ()
-        self.joy_y_val = ()
-        self.x_axis = ()
-        self.y_axis = ()
+
 
     def go_back(self):
         PauseScreen.pause(pause_scene_name='pauseScene', transition_back_scene='main', text="Test",
@@ -115,22 +114,19 @@ class ScreenTwo(Screen):
         self.anim = Animation(x=.1, y=.1) & Animation(size=(400, 200))
         self.anim.start(self.ids.animate_button)
 
-    def joy_button(self):
+    def joy_update(self):
         while 1:
-            self.button_state = self.joystick.get_button_state(1)
-            self.x_axis = self.joystick.get_axis(0)
-            self.y_axis = self.joystick.get_axis(1)
+            self.ids.joystick.center_x = joystick.get_axis('x') * self.width
+
+            self.ids.joystick.center_y = joystick.get_axis('y') * -self.height
+
+            self.ids.joystick.text = "{:.3f} {:.3f}".format(joystick.get_axis('x'), joystick.get_axis('y'))
+
+            self.button_state = self.joystick.get_button_state(0)
             sleep(.1)
 
     def start_joy_thread(self):
-        Thread(target=self.joy_update).start()
-
-    def joy_update(self):
-        while True:
-            self.joy_x_val = joystick.get_axis('x')
-            self.ids.joy_label.x = (self.joy_x_val)
-            self.joy_y_val = joystick.get_axis('y')
-            sleep(.1)
+        Thread(target=self.joy_update, args=()).start()
 
 
 class AdminScreen(Screen):
